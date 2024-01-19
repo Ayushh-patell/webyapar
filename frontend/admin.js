@@ -1,5 +1,5 @@
 const getUser = async () => {
-
+//fetch users
   const response = await fetch("http://localhost:5000/Adminusers", {
     method: "GET",
     mode: "cors",
@@ -12,7 +12,7 @@ const getUser = async () => {
   if (response.ok) {
     const data = await response.json();
     const ul = document.getElementById("twouserlist")
-
+    //fill values of the users
     if(data[0]) ul.querySelector("li:nth-child(1) p").innerHTML = data[0].userID
     if(data[1]) ul.querySelector("li:nth-child(2) p").innerHTML = data[1].userID
 

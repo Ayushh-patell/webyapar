@@ -7,20 +7,16 @@ document.getElementById("profilePic").addEventListener("change", (event) => {
     const reader = new FileReader();
 
     reader.onload = function (e) {
-      // Destroy previous cropper instance
       if (cropper) {
         cropper.destroy();
       }
 
       // Initialize CropperJS on the image
       cropper = new Cropper(document.getElementById("croppedImage"), {
-        aspectRatio: 1, // Set your desired aspect ratio
+        aspectRatio: 1,
         viewMode: 1,
         autoCropArea: 1,
-        crop: function (e) {
-          // Optional: You can get the cropped data here
-          // const croppedData = cropper.getData();
-        },
+        crop: function (e) {},
       });
 
       // Set the image source
@@ -79,12 +75,11 @@ async function updateUser() {
   // Convert the blob to WebP format
   const webpBlob = await convertToWebP(croppedBlob);
 
-  // Create FormData to send data in a POST request
+  // Create FormData to send data 
   const formData = new FormData();
   formData.append("name", name);
   formData.append("profilePic", webpBlob, "profile.webp");
 
-  // Use fetch for making the HTTP request
   const response = await fetch("http://localhost:5000/updateuser", {
     method: "POST",
     headers: {
@@ -108,7 +103,7 @@ function getCroppedBlob(cropper) {
   return new Promise((resolve) => {
     cropper.getCroppedCanvas().toBlob((blob) => {
       resolve(blob);
-    }, "image/jpeg"); // You can adjust the format if needed
+    }, "image/jpeg"); 
   });
 }
 

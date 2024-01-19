@@ -104,7 +104,6 @@ app.get("/userInfo", authenticateToken, async (req, res) => {
       // Retrieve all users from the database
       const user = await User.findOne({ userID }).select({userID:1, name:1, profilePic:1, status:1, updated:1});
   
-      // Map user information to a simplified format
       const sendData = {
         userId: user.userID,
         name: user.name,
@@ -132,7 +131,6 @@ app.get("/Adminusers", authenticateToken, async (req, res) => {
       // Retrieve all users from the database
       const users = await User.find({ role: { $ne: "admin" } }).limit(2).select({userID:1, name:1});
   
-      // Map user information to a simplified format
   
       res.status(200).json(users);
     } catch (error) {
@@ -213,7 +211,7 @@ app.post(
         return res.status(404).json({ error: "User not found" });
       }
 
-      // Handle the updated profile picture (assuming it's already in webp format)
+      // Handle the updated profile picture
       const profilePicBuffer = req.file.buffer;
 
       // Update user information in the database
@@ -222,7 +220,6 @@ app.post(
       user.updated = true;
       await user.save();
 
-      // Send a response indicating success
       res.json({ success: true, user: { userID, name } });
     } catch (error) {
       console.error(error);
@@ -246,9 +243,9 @@ app.get("/users", authenticateToken, async (req, res) => {
     const userInfo = users.map((user) => ({
       userID: user.userID,
       name: user.name,
-      profilePic: user.profilePic.toString("base64"), // Convert Buffer to base64 for sending in JSON
+      profilePic: user.profilePic.toString("base64"), 
       status: user.status,
-      updated: user.updated, // Assuming you have a field named 'updatedAt' in your user schema
+      updated: user.updated,
     }));
 
     res.status(200).json(userInfo);
