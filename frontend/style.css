@@ -1,0 +1,26 @@
+body {
+    min-height: 100vh;
+}
+.maindiv {
+    min-height: 100vh;
+}
+#updateUserForm {
+    min-width: 280px;
+}
+p {
+    margin: 0;
+}
+.btn.btn-outline-primary:hover {
+    color: #0D6EFD !important;
+    background-color: white;
+}
+#croppedImage,
+.updateImg {
+    min-width: 270px;
+    min-height: 270px;
+    max-height: 60vh;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: gray;
+    border: 3px dashed rgb(84, 84, 84);
+}
